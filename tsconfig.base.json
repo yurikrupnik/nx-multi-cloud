@@ -14,7 +14,15 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "esModuleInterop": true,
+    "paths": {
+      "@nx-multi-cloud/nest/http-exception-filter": [
+        "libs/nest/http-exception-filter/src/index.ts"
+      ],
+      "@nx-multi-cloud/nest/swagger-middleware": [
+        "libs/nest/swagger-middleware/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

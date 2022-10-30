@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: friends-api
+  #  namespace: users
+  labels:
+    app: friends-api
+    version: v1
+spec:
+  replicas: 1
+
+  template:
+    metadata:
+      name: friends-api
+      labels:
+        app: friends-api
+        version: v1
+      annotations:
+        "consul.hashicorp.com/connect-inject": "true"
+        "consul.hashicorp.com/connect-service": "friends-api"
+        "consul.hashicorp.com/connect-service-protocol": "http"
+        "consul.hashicorp.com/service-meta-version": "v.1.1"
+        "prometheus.io/scrape": "true"
+        "prometheus.io/port": "9102"
+    spec:
+      serviceAccountName: friends-api
+      containers:
+        - name: friends-api
+          #          image: europe-west1-docker.pkg.dev/maya-mussia/nx-go-playground/users-api:latest
+          image: yurikrupnik/friends-api
+          imagePullPolicy: IfNotPresent
+          #          command: [ "node", "main.js" ]
+          #            - node
+          #            - main.js
+          env:
+            - name: MONGO_URI
+              value: mongodb+srv://yurikrupnik:T4eXKj1RBI4VnszC@cluster0.rdmew.mongodb.net/
+            # - nane: PORT
+            #   value: "8080"
+            #            - name: PROJECT_ID
+            #              value: mussia14
+            #            - name: FIREBASE_DATABASE_URL
+            #              valueFrom:
+            #                secretKeyRef:
+            #                  key: firebase-database-url
+            #                  name: firebase-secret
+            #            - name: FIREBASE_PRIVATE_KEY
+            #              valueFrom:
+            #                secretKeyRef:
+            #                  key: firebase-private-key
+            #                  name: firebase-secret
+            #            - name: FIREBASE_CLIENT_EMAIL
+            #              valueFrom:
+            #                secretKeyRef:
+            #                  key: firebase-client-email
+          #                  name: firebase-secret
+
+
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: friends-api
+      version: v1

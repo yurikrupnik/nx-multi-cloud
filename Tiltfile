@@ -5,6 +5,7 @@ local_resource('pnpm', cmd='pnpm install', deps=['package.json'], labels=["pnpm"
 
 include('./apps/users/api/Tiltfile')
 include('./apps/users/client/Tiltfile')
+include('./apps/friends/api/Tiltfile')
 # include('./apps/auth-app/Tiltfile')
 # include('./apps/infra/commdands/Tiltfile')
 
